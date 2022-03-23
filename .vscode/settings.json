@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/77704807-941b-4079-afca-ef67daa22789/resourceGroups/appsvc_linux_centralus_basic/providers/Microsoft.Web/sites/UniversalPackageTracker",
+    "appService.deploySubpath": "."
+}
