@@ -1,0 +1,22 @@
+{% extends "base.html"%}
+
+{%block info%}
+This is an application which allows users to track packages from multiple carriers in one place. It
+                    includes a web interface for viewing your packages as well as allowing for slack integration as
+                    well.
+{% endblock %}
+
+{%block body%}
+<div class="card text-center ">
+    
+    
+    <div class="card-body bg-light">
+      <h5 class="card-title">Package has been added!</h5>
+      <p>
+          Hello {{user["name"]}} We have successfully added package number: {{result["packageNumber"]}} to your tracked packages
+      </p>
+      <a class="btn btn-primary btn-lg" href='/packages'>See Packages</a>
+    </div>
+    
+  </div>
+  {% endblock %}

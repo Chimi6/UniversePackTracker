@@ -1,0 +1,48 @@
+{% extends "base.html"%}
+
+{%block info%}
+This is an application which allows users to track packages from multiple carriers in one place. It
+                    includes a web interface for viewing your packages as well as allowing for slack integration as
+                    well.
+{% endblock %}
+
+{%block body%}
+<div >
+    <div class="inline-row">
+        {% for x in cards %}
+        <div class="card pad  ">
+            <div class="card-body">
+                <h5 class="card-title text-center">Package: {{x[10]}}</h5>
+                <p class="card-text">Specific information on your package can be found below</p>
+                <hr>
+                <div class="card-header">
+                    Shippment Number: {{x[0]}}
+                </div>
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">Package Status: {{x[2]}}</li>
+                <li class="list-group-item">Message: {{x[3]}}</li>
+                <li class="list-group-item">Start Date: {{x[4]}}</li>
+                <li class="list-group-item">Delivery Date: {{x[6]}}</li>
+                <li class="list-group-item">Shipped From: {{x[7]}}</li>
+                <li class="list-group-item">Shipped To: {{x[9]}}</li>
+                <li class="list-group-item">Carrier: {{x[8]}}</li>
+                
+              </ul>
+            <hr>
+                <div class="text-center">
+                    <form action='/packageHandler' method='POST'>
+                        <input type='hidden' name='id' id='id' value={{x[0]}}/>
+                        <input class="btn btn-primary float-center confirm" type='submit' value='View Details'/>
+                    </form>
+                
+                </div>
+            </div>
+            <p class="card-text text-center"><small class="text-muted">Last updated {{x[5]}}</small></p>
+        </div>
+        {%endfor%}
+       
+    </div>
+</div>
+      
+</div>
+{% endblock %}

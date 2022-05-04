@@ -1,0 +1,39 @@
+{% extends "base.html"%}
+
+{%block info%}
+This is an application which allows users to track packages from multiple carriers in one place. It
+                    includes a web interface for viewing your packages as well as allowing for slack integration as
+                    well.
+{% endblock %}
+
+{%block body%}
+<div class="card text-center ">
+    
+    
+    <div class="card-body bg-light">
+      <h5 class="card-title">Please enter a package number</h5>
+      <form action="" method="post">
+        <p>
+            {{form.packageNumber(class="form-control")}}
+        </p>
+        <h5 class="card-title">{{form.packageName.label}}</h5>
+        <p>
+          {{form.packageName(class="form-control")}}
+      </p>
+        <h5 class="card-title">{{form.carrier.label}}</h5>
+        <div class="d-flex  justify-content-center">
+            
+        <p >
+            
+            {{form.carrier(class = "form-control")}}
+        </p>
+        </div>
+        <p> 
+            
+            {{form.submit(class="btn btn-dark")}}
+        </p>
+      </form>
+    </div>
+    
+  </div>
+  {% endblock %}
