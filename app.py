@@ -25,7 +25,7 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 def index():
     if not session.get("user"):
         return redirect(url_for("login"))
-    return render_template('index.html', user=session["user"], version=msal.__version__)
+    return redirect(url_for("home"))
 
 @app.route("/home",methods=['GET', 'POST'])
 def home():
