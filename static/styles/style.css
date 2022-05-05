@@ -1,13 +1,13 @@
 .inline-row {
-    padding: 10px;
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
 .pad {
-    margin: 10px
+  margin: 10px
 }
 .bordered{
-  border:1px solid black;
+border:1px solid black;
 }
 .groove {border-style: groove;}
