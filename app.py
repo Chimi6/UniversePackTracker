@@ -42,16 +42,24 @@ def packages():
     form = packageDetail()
     if not session.get("user"):
         return redirect(url_for("login"))
-    packageList =getPackages()
-    return render_template('packages.html', cards=packageList, user=session["user"], form = form)
+    packageList =getPackages("current")
+    return render_template('packages.html', cards=packageList, user=session["user"], form = form, mode="undelivered")
+@app.route("/packages/history")
+def packageHistory():
+    form = packageDetail()
+    if not session.get("user"):
+        return redirect(url_for("login"))
+    packageList =getPackages("history")
+    return render_template('packages.html', cards=packageList, user=session["user"], form = form, mode="delivered")
 @app.route('/package/<packageId>')
 def package(packageId):
     if not session.get("user"):
         return redirect(url_for("login"))
     # Technically this should be a PUT request as part of REST
-    
+    details = getPackage(packageId)
+    history = json.loads(details[0][12]).get("tracking_details")
     #id = request.args.id
-    return render_template('package.html', user=session["user"])
+    return render_template('package.html', user=session["user"], package=details[0],historyList=history)
 @app.route('/packageHandler', methods=['POST'])
 def changeId():
     if not session.get("user"):
@@ -120,20 +128,36 @@ def postToLogic(form):
     "packageName": "{}".format(form["packageName"])
     })
     headers = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'mode': 'current'
     }
     response = requests.request("POST", url, headers=headers, data=payload)
 
     print(response.text)
+def getPackage(shippmentId):
+    graph_data = getGraph()
+    userId= graph_data["value"][0]["id"]
+    
+    url = "https://cc-capstone-db-handler.azurewebsites.net/api/databaseapi?code=aLPqYweCCdCOhBOojQqOz/qbjia3fibVC8d/pggxiagmGZj4y8eW5A==&shippmentNumber={}".format(shippmentId)
+    payload={}
+    headers = {
+        'mode': 'one'
+    }
 
-def getPackages():
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    return json.loads(response.text).get("message")
+
+def getPackages(header):
     graph_data = getGraph()
     userId= graph_data["value"][0]["id"]
     
     url = "https://cc-capstone-db-handler.azurewebsites.net/api/databaseapi?code=aLPqYweCCdCOhBOojQqOz/qbjia3fibVC8d/pggxiagmGZj4y8eW5A==&userId={}".format(userId)
 
     payload={}
-    headers = {}
+    headers = {
+        'mode': '{}'.format(header)
+    }
 
     response = requests.request("GET", url, headers=headers, data=payload)
 

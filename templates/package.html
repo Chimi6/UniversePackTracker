@@ -1,11 +1,63 @@
 {% extends "base.html"%}
 
 {%block info%}
-Below you will find the specific information pertaining to our selected package. This will include the history of said package.
+Below you can view the requested information on your specified package.
 {% endblock %}
 
 {%block body%}
-<h1>one package</h1>
+
+<div class="card pad mx-auto" style="width: 64rem;">
+    <div class="card-body">
+        <h5 class="card-title text-center">Package: {{package[10]}}</h5>
+        <p class="card-text">Specific information on your package can be found below</p>
+        <hr>
+        <div class="card-header">
+            Shippment Number: {{package[0]}}
+        </div>
+        <ul class="list-group list-group-flush">
+        <li class="list-group-item">Package Status: {{package[2]}}</li>
+        <li class="list-group-item">Message: {{package[3]}}</li>
+        <li class="list-group-item">Start Date: {{package[4]}}</li>
+        <li class="list-group-item">Delivery Date: {{package[6]}}</li>
+        <li class="list-group-item">Shipped From: {{package[7]}}</li>
+        <li class="list-group-item">Shipped To: {{package[9]}}</li>
+        <li class="list-group-item">Carrier: {{package[8]}}</li>
+        
+      </ul>
+      <div class="">
+        
+        <table class="table table-striped groove">
+            <thead>
+            <tr>
+                <th scope="col">Update</th>
+                <th scope="col">Date</th>
+                <th scope="col">State</th>
+                <th scope="col">City</th>
+                <th scope="col">Message</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for x in range(0,historyList|length) %}   
+            <tr>
+                <th scope="row">{{historyList|length-x}}</th>
+                <td>{{historyList[(historyList|length-x-1)].get("datetime")}}</td>
+                <td>{{historyList[(historyList|length-x-1)].get("tracking_location").get("state")}}</td>
+                <td>{{historyList[(historyList|length-x-1)].get("tracking_location").get("city")}}</td>
+                <td>{{historyList[(historyList|length-x-1)].get("description")}}</td>
+            </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+      <div>
+    <hr>
+        <div class="text-center">
+            <a class="btn btn-primary btn-lg" href='/packages'>Return to package page</a>
+            
+        
+        </div>
+    </div>
+    <p class="card-text text-center"><small class="text-muted">Last updated {{package[5]}}</small></p>
+</div>
       
 </div>
 {% endblock %}
